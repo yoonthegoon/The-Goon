@@ -16,6 +16,8 @@ bot = commands.Bot(command_prefix='?')
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=discord.Activity(name='?help', type=discord.ActivityType.listening))
+
     print(f'We have logged in as {bot.user}')
 
     print('Guilds')
