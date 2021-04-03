@@ -20,8 +20,8 @@ class Roll(commands.Cog):
         result = str(sum(roll_results))
         result += f' = ({" + ".join(map(str, roll_results))})' if rolls > 1 else ''
 
-        embed = discord.Embed(title=f'Roll: {dice}', description=result, color=0x03037f)
-        embed.set_author(name="The Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
+        embed = discord.Embed(title=f'Roll: {dice}', description=result, color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         await ctx.reply(embed=embed)
 
