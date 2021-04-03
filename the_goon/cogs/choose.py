@@ -9,7 +9,7 @@ class Choose(commands.Cog):
 
     @commands.command(description='For when you wanna settle the score some other way')
     async def choose(self, ctx, *choices: str):
-        """Chooses between multiple choices."""
+        """Chooses between multiple options."""
         result = random.choice(choices)
 
         embed = discord.Embed(title=f'Choose between: {", ".join(choices)}', description=result, color=0x037f03)
