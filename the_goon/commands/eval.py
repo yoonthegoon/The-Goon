@@ -5,7 +5,7 @@ class Eval(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(description='For when you wanna settle the score some other way')
+    @commands.command()
     async def eval(self, ctx, *expression: str):
         """Evaluate the given source."""
         try:
