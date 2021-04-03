@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 import logging
 import os
@@ -16,6 +17,10 @@ bot = commands.Bot(command_prefix='?')
 @bot.event
 async def on_ready():
     print(f'We have logged in as {bot.user}')
+
+    print('Guilds')
+    for guild in bot.guilds:
+        print(f'\t{guild}')
 
 
 for file in os.listdir('./commands'):
