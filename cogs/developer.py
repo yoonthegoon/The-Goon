@@ -19,7 +19,7 @@ class Developer(commands.Cog):
         embed = discord.Embed(title=f'Delete: {n}', description='You do not have permission to use this command.', color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
-        await ctx.reply(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
     async def write(self, ctx, message):
@@ -33,7 +33,7 @@ class Developer(commands.Cog):
         embed = discord.Embed(title=f'Write: {message}', description='You do not have permission to use this command.', color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
-        await ctx.reply(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
     async def react(self, ctx, reaction, message_id: int):
@@ -45,13 +45,13 @@ class Developer(commands.Cog):
                     await message.add_reaction(reaction)
                     return
         except Exception as e:
-            await ctx.reply(f'`{e}`')
+            await ctx.reply(f'`{e}`', mention_author=False)
             return
 
         embed = discord.Embed(title=f'React: {reaction, message_id}', description='You do not have permission to use this command.', color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
-        await ctx.reply(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 def setup(bot):

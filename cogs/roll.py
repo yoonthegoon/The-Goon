@@ -13,7 +13,7 @@ class Roll(commands.Cog):
         try:
             rolls, limit = map(int, dice.split('d'))
         except Exception:
-            await ctx.reply('`Format has to be in NdN!`')
+            await ctx.reply('`Format has to be in NdN!`', mention_author=False)
             return
 
         roll_results = [random.randint(1, limit) for _ in range(rolls)]
@@ -23,7 +23,7 @@ class Roll(commands.Cog):
         embed = discord.Embed(title=f'Roll: {dice}', description=result, color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
-        await ctx.reply(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 def setup(bot):

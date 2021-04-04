@@ -12,12 +12,12 @@ class Python(commands.Cog):
         try:
             result = eval(' '.join(expression), {})
         except Exception as e:
-            await ctx.reply(f'`{e}`')
+            await ctx.reply(f'`{e}`', mention_author=False)
             return
 
         code = f'```py\n{" ".join(expression)}\n``````\n{result}\n```'
 
-        await ctx.reply(code)
+        await ctx.reply(code, mention_author=False)
 
     @commands.command()
     async def exec(self, ctx, *expression: str):
@@ -26,7 +26,7 @@ class Python(commands.Cog):
             embed = discord.Embed(title=f'Exec: {" ".join(expression)}', description='You do not have permission to use this command.', color=0x037f03)
             embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
-            await ctx.reply(embed=embed)
+            await ctx.reply(embed=embed, mention_author=False)
             return
 
         try:
@@ -35,10 +35,10 @@ class Python(commands.Cog):
             result = loc['out']
             code = f'```py\n{" ".join(expression)}\n``````\n{result}\n```'
         except Exception as e:
-            await ctx.reply(f'`{e}`')
+            await ctx.reply(f'`{e}`', mention_author=False)
             return
 
-        await ctx.reply(code)
+        await ctx.reply(code, mention_author=False)
 
 
 def setup(bot):
