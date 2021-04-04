@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import logging
 import os
+from server import start_thread
 
 
 logger = logging.getLogger('discord')
@@ -25,11 +26,11 @@ async def on_ready():
         print(f'\t{guild}')
 
 
-@bot.command('tar')
+@bot.command()
 async def tar(ctx):
-    """Come on, tar; try it out."""
     if ctx.author.id in (586321204047249423, 586321204047249423):  # Tara
-        await ctx.message.add_reaction('💩')
+        import random
+        await ctx.message.add_reaction(random.choice(('🍑', '💩')))
 
 
 for file in os.listdir('cogs'):
@@ -37,4 +38,5 @@ for file in os.listdir('cogs'):
         bot.load_extension(f'cogs.{file[:-3]}')
 
 
+start_thread()  # keeps main.py running on repl.it
 bot.run(os.getenv('DISCORD_TOKEN'))
