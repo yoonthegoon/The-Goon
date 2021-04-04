@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import itertools
 from replit import db
 
 
@@ -55,11 +56,11 @@ class Developer(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
-    async def reaction_role_add(self, ctx, message_id, **kwargs):
+    async def reaction_role_add(self, ctx, message_id, *args):
         """Assigns roles to users who react accordingly to given message."""
-        embed = discord.Embed(title=f'Reaction role: {message_id, kwargs}', color=0x037f03)
+        embed = discord.Embed(title=f'Reaction role: {message_id, args}', color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
-        print(kwargs)
+        print(args)
         try:
             for role in ctx.author.roles:
                 if role.permissions.manage_roles or role.permissions.administrator or ctx.author.guild_permissions.administrator or ctx.author.id == 586321204047249423:
@@ -68,7 +69,10 @@ class Developer(commands.Cog):
                         await ctx.reply(embed=embed, mention_author=False)
                         return
                     else:
-                        db[message_id] = {kw: kwargs[kw] for kw in kwargs}
+                        i = iter(args)
+                        o = itertools.zip_longest(i, i, fillvalue=None)
+                        kwargs = dict(o)
+                        db[message_id] = {kw: kwargs[kw] for kw in args}
                         embed.description = 'Reaction role added.'
                         await ctx.reply(embed=embed, mention_author=False)
                         return
