@@ -30,8 +30,9 @@ class Python(commands.Cog):
             return
 
         try:
+            links = 'links = ["https://replit.com/@YunisYilmaz/The-Goon", "https://uptimerobot.com/", "https://discordpy.readthedocs.io/en/latest/api.html"]; '
             loc = {}
-            exec('out = "Define <out> to return a value"; ' + ' '.join(expression), globals(), loc)
+            exec(links + 'out = "Define <out> to return a value"; ' + ' '.join(expression), globals(), loc)
             result = loc['out']
             code = f'```py\n{" ".join(expression)}\n``````\n{result}\n```'
         except Exception as e:
