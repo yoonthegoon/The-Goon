@@ -3,6 +3,7 @@ from discord.ext import commands
 import logging
 import os
 from server import start_thread
+import re
 from replit import db
 
 
@@ -29,20 +30,25 @@ async def on_ready():
 
 @bot.event
 async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
-    if payload.message_id not in db.keys():
+    if str(payload.message_id) not in db.keys():
         return
-    if payload.emoji.name not in db[payload.message_id]:
+    if payload.emoji.name not in db[str(payload.message_id)]:
         return
-    await payload.member.add_roles(bot.get_guild(payload.guild_id).get_role(db[payload.message_id][payload.emoji.name]))
+    role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    guild = bot.get_guild(payload.guild_id)
+    await payload.member.add_roles(guild.get_role(role))
 
 
 @bot.event
 async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
-    if payload.message_id not in db.keys():
+    if str(payload.message_id) not in db.keys():
         return
-    if payload.emoji.name not in db[payload.message_id]:
+    if payload.emoji.name not in db[str(payload.message_id)]:
         return
-    await payload.member.remove_roles(bot.get_guild(payload.guild_id).get_role(db[payload.message_id][payload.emoji.name]))
+    role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    guild = bot.get_guild(payload.guild_id)
+    member = await guild.fetch_member(payload.user_id)
+    await member.remove_roles(guild.get_role(role))
 
 
 @bot.command()
@@ -58,5 +64,10 @@ for file in os.listdir('cogs'):
         bot.load_extension(f'cogs.{file[:-3]}')
 
 
+intents = discord.Intents.default()
+intents.presences = True
+intents.members = True
+
 start_thread()  # keeps main.py running on repl.it
+
 bot.run(os.getenv('DISCORD_TOKEN'))
