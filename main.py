@@ -3,6 +3,7 @@ from discord.ext import commands
 import logging
 import os
 from server import start_thread
+from replit import db
 
 
 logger = logging.getLogger('discord')
@@ -24,6 +25,24 @@ async def on_ready():
     print('Guilds')
     for guild in bot.guilds:
         print(f'\t{guild}')
+
+
+@bot.event
+async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
+    if payload.message_id not in db.keys():
+        return
+    if payload.emoji.name not in db[payload.message_id]:
+        return
+    await payload.member.add_roles(bot.get_guild(payload.guild_id).get_role(db[payload.message_id][payload.emoji.name]))
+
+
+@bot.event
+async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
+    if payload.message_id not in db.keys():
+        return
+    if payload.emoji.name not in db[payload.message_id]:
+        return
+    await payload.member.remove_roles(bot.get_guild(payload.guild_id).get_role(db[payload.message_id][payload.emoji.name]))
 
 
 @bot.command()

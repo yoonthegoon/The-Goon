@@ -40,7 +40,7 @@ class Developer(commands.Cog):
         """Reacts an emoji to a given message id."""
         try:
             for role in ctx.author.roles:
-                if (role.permissions.read_message_history and role.permissions.add_reactions) or role.permissions.administrator or ctx.author.guild_permissions.administrator or ctx.author.id == 586321204047249423:  # Lets Yoon#8579 use the command regardless of permissions
+                if (role.permissions.read_message_history and role.permissions.add_reactions) or role.permissions.administrator or ctx.author.guild_permissions.administrator or ctx.author.id == 586321204047249423:
                     message = await ctx.channel.fetch_message(message_id)
                     await message.add_reaction(reaction)
                     return
@@ -49,6 +49,24 @@ class Developer(commands.Cog):
             return
 
         embed = discord.Embed(title=f'React: {reaction, message_id}', description='You do not have permission to use this command.', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+    @commands.command()
+    async def reaction_role_add(self, ctx, message_id, **kwargs):
+        """Assigns roles to users who react accordingly to given message."""
+        try:
+            for role in ctx.author.roles:
+                if role.permissions.manage_roles or role.permissions.administrator or ctx.author.guild_permissions.administrator or ctx.author.id == 586321204047249423:
+                    # TODO: Replace all the hard code in here with replit db
+                    # {message_id: {reaction_id: rold_id, reaction_id: role_id, ...}}
+                    pass
+        except Exception as e:
+            await ctx.reply(f'`{e}`', mention_author=False)
+            return
+
+        embed = discord.Embed(title=f'Reaction role: {message_id, kwargs}', description='You do not have permission to use this command.', color=0x037f03)
         embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         await ctx.reply(embed=embed, mention_author=False)
