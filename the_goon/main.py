@@ -25,6 +25,12 @@ async def on_ready():
         print(f'\t{guild}')
 
 
+@bot.command('tar')
+async def tar(ctx):
+    if ctx.author.id in (586321204047249423, 586321204047249423):  # Tara
+        await ctx.message.add_reaction('💩')
+
+
 for file in os.listdir('cogs'):
     if file.endswith('.py'):
         bot.load_extension(f'cogs.{file[:-3]}')
