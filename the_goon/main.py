@@ -27,6 +27,7 @@ async def on_ready():
 
 @bot.command('tar')
 async def tar(ctx):
+    """Come on, tar; try it out."""
     if ctx.author.id in (586321204047249423, 586321204047249423):  # Tara
         await ctx.message.add_reaction('💩')
 
