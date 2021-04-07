@@ -37,7 +37,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def kick(self, ctx, member: str, reason: str = None):
         """Kicks mentioned member."""
-        member = ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+        member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'kick: {member}'
         if reason:
             embed.title += f'\nreason: {reason}'
