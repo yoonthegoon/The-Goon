@@ -13,20 +13,18 @@ class Chance(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def flip(self, ctx, limit: int):
+    async def flip(self, ctx, limit: int = 1):
         """Flips a coin a given number of times."""
-        embed.title = f'flip: {" ".join(limit)}'
+        embed.title = f'flip: {limit}'
 
         try:
-            flip_results = [choice(('Heads', 'Tails')) for _ in limit]
+            flip_results = [choice(('Heads', 'Tails')) for _ in range(limit)]
             if len(flip_results) == 1:
                 embed.description = flip_results[0]
             else:
-                embed.description = ', '.join(flip_results)
-                flip_results.sort()
-                from itertools import groupby
-                result = [len(list(group)) for key, group in groupby(flip_results)]
-                embed.description += f'\n(Heads: {result[0]}, Tails: {result[1]})'
+                description = ', '.join(flip_results)
+                embed.description = description
+                embed.description += f'\n(Heads: {description.count("Heads")}, Tails: {description.count("Tails")})'
 
         except Exception as e:
             embed.description = f'ERROR: {e}'
@@ -47,14 +45,14 @@ class Chance(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
-    async def roll(self, ctx, dice):
+    async def roll(self, ctx, dice: str = '1d6'):
         """Rolls dice in NdN format"""
-        embed.title = f'roll: {" ".join(dice)}'
+        embed.title = f'roll: {dice}'
 
         try:
             rolls, limit = map(int, dice.split('d'))
             roll_results = [randint(1, limit) for _ in range(rolls)]
-            embed.description = sum(roll_results)
+            embed.description = str(sum(roll_results))
             if len(roll_results) > 1:
                 embed.description += f' = ({" + ".join(map(str, roll_results))})'
 
