@@ -33,25 +33,62 @@ async def on_ready():
 
 @bot.event
 async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
-    if str(payload.message_id) not in db.keys():
+    if payload.message_id != 829433058419015750:
         return
-    if payload.emoji.name not in db[str(payload.message_id)]:
-        return
-    role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    pid = payload.emoji.id
     guild = bot.get_guild(payload.guild_id)
-    await payload.member.add_roles(guild.get_role(role))
+
+    # Minecraft
+    if pid == 826890083957342248:
+        role = guild.get_role(815380690102779944)
+    # League
+    elif pid == 826890607665479751:
+        role = guild.get_role(721762056939765810)  # Guess
+    # DnD
+    elif pid == 826890581237956659:
+        role = guild.get_role(735643555124478022)
+    else:
+        return
+    await payload.member.add_roles(role)
+
+    # if str(payload.message_id) not in db.keys():
+    #     return
+    # if payload.emoji.name not in db[str(payload.message_id)]:
+    #     return
+    # role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    # guild = bot.get_guild(payload.guild_id)
+    # await payload.member.add_roles(guild.get_role(role))
 
 
 @bot.event
 async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
-    if str(payload.message_id) not in db.keys():
+    if payload.message_id != 829433058419015750:
         return
-    if payload.emoji.name not in db[str(payload.message_id)]:
-        return
-    role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    pid = payload.emoji.id
     guild = bot.get_guild(payload.guild_id)
     member = await guild.fetch_member(payload.user_id)
-    await member.remove_roles(guild.get_role(role))
+
+    # Minecraft
+    if pid == 826890083957342248:
+        role = guild.get_role(815380690102779944)
+    # League
+    elif pid == 826890607665479751:
+        role = guild.get_role(721762056939765810)  # Guess
+    # DnD
+    elif pid == 826890581237956659:
+        role = guild.get_role(735643555124478022)
+    else:
+        return
+    await member.remove_roles(role)
+
+    # if str(payload.message_id) not in db.keys():
+    #     return
+    # if payload.emoji.name not in db[str(payload.message_id)]:
+    #     return
+    # role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
+    # guild = bot.get_guild(payload.guild_id)
+    # member = await guild.fetch_member(payload.user_id)
+    # await member.remove_roles(guild.get_role(role))
 
 
 @bot.command()
