@@ -1,9 +1,9 @@
 import discord
-from discord.ext import commands
 import logging
 import os
-from server import start_thread
 import re
+from discord.ext import commands
+from server import start_thread
 from replit import db
 
 
@@ -13,8 +13,11 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+intents = discord.Intents.default()
+intents.presences = True
+intents.members = True
 
-bot = commands.Bot(command_prefix='?')
+bot = commands.Bot(command_prefix='?', intents=intents)
 
 
 @bot.event
@@ -74,10 +77,6 @@ for file in os.listdir('cogs'):
     if file.endswith('.py'):
         bot.load_extension(f'cogs.{file[:-3]}')
 
-
-intents = discord.Intents.default()
-intents.presences = True
-intents.members = True
 
 start_thread()  # keeps main.py running on repl.it
 
