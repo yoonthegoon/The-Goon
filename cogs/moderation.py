@@ -35,12 +35,12 @@ class Moderation(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
     
     @commands.command()
-    async def kick(self, ctx, member: str, reason: str = None):
+    async def kick(self, ctx, member: str, *reason: str):
         """Kicks mentioned member."""
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'kick: {member}'
         if reason:
-            embed.title += f'\nreason: {reason}'
+            embed.title += f'\nreason: {" ".join(reason)}'
 
         if not ctx.author.permissions_in(ctx.channel).kick_members:
             embed.description = 'You do not have permission to use this command.'\
@@ -54,6 +54,28 @@ class Moderation(commands.Cog):
         except Exception as e:
             embed.description = f'ERROR: {e}'
     
+        await ctx.reply(embed=embed, mention_author=False)
+
+    @commands.command()
+    async def ban(self, ctx, member: str, *reason: str):
+        """Bans mentioned member. Deletes messages from member over the past day."""
+        member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+        embed.title = f'ban: {member}'
+        if reason:
+            embed.title += f'\nreason: {" ".join(reason)}'
+
+        if not ctx.author.permissions_in(ctx.channel).ban_members:
+            embed.description = 'You do not have permission to use this command.' \
+                                'You need to be able to ban members to use this command.'
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
+        try:
+            await ctx.guild.ban(member, reason=reason)
+
+        except Exception as e:
+            embed.description = f'ERROR: {e}'
+
         await ctx.reply(embed=embed, mention_author=False)
 
 
