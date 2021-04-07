@@ -32,7 +32,8 @@ class Python(commands.Cog):
         embed.title = f'exec: {" ".join(expression)}'
 
         if ctx.author.id != 586321204047249423:
-            embed.description = 'You do not have permission to use this command.'
+            embed.description = 'You do not have permission to use this command.' \
+                                'You need to be Yoon#8579 to use this command.'
             await ctx.reply(embed=embed, mention_author=False)
             return
 
