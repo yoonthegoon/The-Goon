@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import re
 
 
 embed = discord.Embed(color=0x037f03)
@@ -34,9 +35,9 @@ class Moderation(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
     
     @commands.command()
-    async def kick(self, ctx, member:str, reason: str = None):
+    async def kick(self, ctx, member: str, reason: str = None):
         """Kicks mentioned member."""
-        member = ctx.message.mentions[0]
+        member = ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'kick: {member}'
         if reason:
             embed.title += f'\nreason: {reason}'
