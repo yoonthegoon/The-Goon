@@ -14,7 +14,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def delete(self, ctx, limit: int):
-        """Deletes past {limit} messages in current channel."""
+        """Deletes past number of messages in current channel."""
         embed.title = f'delete: {limit}'
     
         if not ctx.author.permissions_in(ctx.channel).manage_messages:
@@ -39,8 +39,6 @@ class Moderation(commands.Cog):
         """Kicks mentioned member."""
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'kick: {member}'
-        if reason:
-            embed.title += f'\nreason: {" ".join(reason)}'
 
         if not ctx.author.permissions_in(ctx.channel).kick_members:
             embed.description = 'You do not have permission to use this command.'\
@@ -50,6 +48,9 @@ class Moderation(commands.Cog):
     
         try:
             await ctx.guild.kick(member, reason=reason)
+            embed.description = f'Successfully kicked {member}'
+            if reason:
+                embed.description += f'\nReason: {" ".join(reason)}'
             
         except Exception as e:
             embed.description = f'ERROR: {e}'
@@ -61,8 +62,6 @@ class Moderation(commands.Cog):
         """Bans mentioned member. Deletes messages from member over the past day."""
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'ban: {member}'
-        if reason:
-            embed.title += f'\nreason: {" ".join(reason)}'
 
         if not ctx.author.permissions_in(ctx.channel).ban_members:
             embed.description = 'You do not have permission to use this command.' \
@@ -71,7 +70,10 @@ class Moderation(commands.Cog):
             return
 
         try:
-            await ctx.guild.ban(member, reason=reason)
+            await ctx.guild.ban(member, reason=reason)  # TODO: fix "quote_from_bytes() expected bytes"
+            embed.description = f'Successfully banned {member}'
+            if reason:
+                embed.description += f'\nReason: {" ".join(reason)}'
 
         except Exception as e:
             embed.description = f'ERROR: {e}'
