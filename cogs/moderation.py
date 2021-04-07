@@ -17,7 +17,8 @@ class Moderation(commands.Cog):
         embed.title = f'delete: {limit}'
     
         if not ctx.author.permissions_in(ctx.channel).manage_messages:
-            embed.description = 'You do not have permission to use this command.'
+            embed.description = 'You do not have permission to use this command.' \
+                                'You need to be able to manage messages to use this command'
             await ctx.reply(embed=embed, mention_author=False)
             return
     
@@ -30,6 +31,27 @@ class Moderation(commands.Cog):
         except Exception as e:
             embed.description = f'ERROR: {e}'
 
+        await ctx.reply(embed=embed, mention_author=False)
+    
+    @commands.command()
+    async def kick(self, ctx, user: discord.abc.Snowflake, reason: str = None):
+        """Kicks mentioned user."""
+        embed.title = f'kick: {user}'
+        if reason:
+            embed.title += f'\nreason: {reason}'
+
+        if not ctx.author.permissions_in(ctx.channel).kick_members:
+            embed.description = 'You do not have permission to use this command.'\
+                                'You need to be able to kick members to use this command.'
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+    
+        try:
+            await ctx.guild.kick(user, reason=reason)
+            
+        except Exception as e:
+            embed.description = f'ERROR: {e}'
+    
         await ctx.reply(embed=embed, mention_author=False)
 
 
