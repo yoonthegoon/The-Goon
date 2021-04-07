@@ -52,11 +52,16 @@ async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
 
 
 @bot.command()
-async def tar(ctx):
-    """Come on, tar; try it out."""
-    if ctx.author.id in (586321204047249423, 586321204047249423):  # Tara
-        import random
-        await ctx.message.add_reaction(random.choice(('🍑', '💩')))
+async def links(ctx):
+    """Quick links for Yoon#8579"""
+    if ctx.author.id == 586321204047249423:
+        embed = discord.Embed(color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
+        embed.description = ('https://replit.com/@YunisYilmaz/The-Goon\n'
+                             'https://uptimerobot.com/dashboard?ref=website-header#mainDashboard\n'
+                             'https://discordpy.readthedocs.io/en/latest/ext/commands/api.html')
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 for file in os.listdir('cogs'):
