@@ -16,7 +16,7 @@ class Moderation(commands.Cog):
         """Deletes past {limit} messages in current channel."""
         embed.title = f'delete: {limit}'
     
-        if not ctx.author.permissions_in(ctx.channel).is_superset(discord.Permissions.manage_messages):
+        if not ctx.author.permissions_in(ctx.channel).manage_messages:
             embed.description = 'You do not have permission to use this command.'
             await ctx.reply(embed=embed, mention_author=False)
             return

@@ -9,21 +9,6 @@ class Developer(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def delete(self, ctx, n: int):
-        """Deletes past <n> messages (including command)."""
-        for role in ctx.author.roles:
-            if role.permissions.manage_messages or role.permissions.administrator or ctx.author.guild_permissions.administrator or ctx.author.id == 586321204047249423:
-                history = ctx.channel.history(limit=n)
-                async for message in history:
-                    await message.delete()
-                return
-
-        embed = discord.Embed(title=f'Delete: {n}', description='You do not have permission to use this command.', color=0x037f03)
-        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
-
-        await ctx.reply(embed=embed, mention_author=False)
-
-    @commands.command()
     async def write(self, ctx, message):
         """Deletes command and sends message. Requires permission to manage messages"""
         for role in ctx.author.roles:
