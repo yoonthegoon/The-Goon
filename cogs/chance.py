@@ -15,6 +15,7 @@ class Chance(commands.Cog):
     @commands.command()
     async def flip(self, ctx, limit: int = 1):
         """Flips a coin a given number of times."""
+
         embed.title = f'flip: {limit}'
 
         try:
@@ -34,6 +35,7 @@ class Chance(commands.Cog):
     @commands.command()
     async def choose(self, ctx, *expressions: str):
         """Choose one out of given options."""
+
         embed.title = f'choose: {" ".join(expressions)}'
 
         try:
@@ -47,6 +49,7 @@ class Chance(commands.Cog):
     @commands.command()
     async def roll(self, ctx, dice: str = '1d6'):
         """Rolls dice in NdN format"""
+
         embed.title = f'roll: {dice}'
 
         try:

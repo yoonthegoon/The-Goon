@@ -14,6 +14,7 @@ class Python(commands.Cog):
     @commands.command()
     async def eval(self, ctx, *expression: str):
         """Evaluate a python expression."""
+
         embed.title = f'eval: {" ".join(expression)}'
 
         try:
@@ -28,7 +29,8 @@ class Python(commands.Cog):
 
     @commands.command()
     async def exec(self, ctx, *expression: str):
-        """Executes python code."""
+        """Executes python code for Yoon#8579."""
+
         embed.title = f'exec: {" ".join(expression)}'
 
         if ctx.author.id != 586321204047249423:

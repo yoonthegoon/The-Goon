@@ -15,6 +15,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def delete(self, ctx, limit: int):
         """Deletes past number of messages in current channel."""
+
         embed.title = f'delete: {limit}'
     
         if not ctx.author.permissions_in(ctx.channel).manage_messages:
@@ -37,6 +38,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def kick(self, ctx, member: str, *reason: str):
         """Kicks mentioned member."""
+
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'kick: {member}'
 
@@ -60,6 +62,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def ban(self, ctx, member: str, *reason: str):
         """Bans mentioned member. Deletes messages from member over the past day."""
+
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
         embed.title = f'ban: {member}'
 
