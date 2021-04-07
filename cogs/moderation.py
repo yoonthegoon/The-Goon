@@ -64,6 +64,7 @@ class Moderation(commands.Cog):
         """Bans mentioned member. Deletes messages from member over the past day."""
 
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+        reason = " ".join(reason)
         embed.title = f'ban: {member}'
 
         if not ctx.author.permissions_in(ctx.channel).ban_members:
@@ -76,7 +77,7 @@ class Moderation(commands.Cog):
             await ctx.guild.ban(member, reason=reason)  # TODO: fix "quote_from_bytes() expected bytes"
             embed.description = f'Successfully banned {member}'
             if reason:
-                embed.description += f'\nReason: {" ".join(reason)}'
+                embed.description += f'\nReason: {reason}'
 
         except Exception as e:
             embed.description = f'ERROR: {e}'
