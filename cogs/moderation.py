@@ -34,9 +34,10 @@ class Moderation(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
     
     @commands.command()
-    async def kick(self, ctx, user: discord.abc.Snowflake, reason: str = None):
-        """Kicks mentioned user."""
-        embed.title = f'kick: {user}'
+    async def kick(self, ctx, member:str, reason: str = None):
+        """Kicks mentioned member."""
+        member = ctx.message.mentions[0]
+        embed.title = f'kick: {member}'
         if reason:
             embed.title += f'\nreason: {reason}'
 
@@ -47,7 +48,7 @@ class Moderation(commands.Cog):
             return
     
         try:
-            await ctx.guild.kick(user, reason=reason)
+            await ctx.guild.kick(member, reason=reason)
             
         except Exception as e:
             embed.description = f'ERROR: {e}'
