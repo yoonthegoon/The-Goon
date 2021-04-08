@@ -19,8 +19,9 @@ class Moderation(commands.Cog):
         embed.title = f'delete: {limit}'
     
         if not ctx.author.permissions_in(ctx.channel).manage_messages:
+            embed.colour = 0x03037f
             embed.description = 'You do not have permission to use this command.' \
-                                'You need to be able to manage messages to use this command'
+                                '\nYou need to be able to manage messages to use this command'
             await ctx.reply(embed=embed, mention_author=False)
             return
     
@@ -31,6 +32,7 @@ class Moderation(commands.Cog):
             embed.description = f'{limit} messages deleted.'
             
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
 
         await ctx.reply(embed=embed, mention_author=False)
@@ -39,23 +41,26 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, member: str, *reason: str):
         """Kicks mentioned member."""
 
-        member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
-        reason = " ".join(reason)
         embed.title = f'kick: {member}'
 
         if not ctx.author.permissions_in(ctx.channel).kick_members:
+            embed.colour = 0x03037f
             embed.description = 'You do not have permission to use this command.'\
-                                'You need to be able to kick members to use this command.'
+                                '\nYou need to be able to kick members to use this command.'
             await ctx.reply(embed=embed, mention_author=False)
             return
     
         try:
+            member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+            reason = " ".join(reason)
+
             await ctx.guild.kick(member, reason=reason)
             embed.description = f'Successfully kicked {member}'
             if reason:
                 embed.description += f'\nReason: {reason}'
             
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
     
         await ctx.reply(embed=embed, mention_author=False)
@@ -64,23 +69,26 @@ class Moderation(commands.Cog):
     async def ban(self, ctx, member: str, *reason: str):
         """Bans mentioned member. Deletes messages from member over the past day."""
 
-        member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
-        reason = " ".join(reason)
         embed.title = f'ban: {member}'
 
         if not ctx.author.permissions_in(ctx.channel).ban_members:
+            embed.colour = 0x03037f
             embed.description = 'You do not have permission to use this command.' \
-                                'You need to be able to ban members to use this command.'
+                                '\nYou need to be able to ban members to use this command.'
             await ctx.reply(embed=embed, mention_author=False)
             return
 
         try:
+            member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+            reason = " ".join(reason)
+
             await ctx.guild.ban(member, reason=reason)
             embed.description = f'Successfully banned {member}'
             if reason:
                 embed.description += f'\nReason: {reason}'
 
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
 
         await ctx.reply(embed=embed, mention_author=False)

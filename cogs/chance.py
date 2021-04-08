@@ -28,6 +28,7 @@ class Chance(commands.Cog):
                 embed.description += f'\n(Heads: {description.count("Heads")}, Tails: {description.count("Tails")})'
 
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
 
         await ctx.reply(embed=embed, mention_author=False)
@@ -42,6 +43,7 @@ class Chance(commands.Cog):
             embed.description = choice(expressions)
 
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
 
         await ctx.reply(embed=embed, mention_author=False)
@@ -60,6 +62,7 @@ class Chance(commands.Cog):
                 embed.description += f' = ({" + ".join(map(str, roll_results))})'
 
         except Exception as e:
+            embed.colour = 0x7f0003
             embed.description = f'ERROR: {e}'
 
         await ctx.reply(embed=embed, mention_author=False)
