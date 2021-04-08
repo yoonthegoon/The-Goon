@@ -11,20 +11,27 @@ class Configuration(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def prefix(self, ctx, pre: str):
-        """Change command prefix."""
+    # @commands.command()
+    # async def prefix(self, ctx, pre: str):
+    #     """Change command prefix."""
+    #
+    #     embed.title = f'prefix: {pre}'
+    #
+    #     try:
+    #         self.bot.command_prefix = pre
+    #         embed.description = 'Success?'
+    #
+    #     except Exception as e:
+    #         embed.description = f'ERROR: {e}'
+    #
+    #     await ctx.reply(embed=embed, mention_author=False)
 
-        embed.title = f'prefix: {pre}'
-
-        try:
-            self.bot.command_prefix = pre
-            embed.description = 'Success?'
-
-        except Exception as e:
-            embed.description = f'ERROR: {e}'
-
-        await ctx.reply(embed=embed, mention_author=False)
+    # @commands.group()
+    # async def reaction_role(self, ctx):
+    #     embed.title = 'reaction role'
+    #
+    #     try:
+    #         embed.description =
 
 
 def setup(bot):
