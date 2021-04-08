@@ -40,6 +40,7 @@ class Moderation(commands.Cog):
         """Kicks mentioned member."""
 
         member = await ctx.guild.fetch_member(int(re.sub("[^0-9]", "", member)))
+        reason = " ".join(reason)
         embed.title = f'kick: {member}'
 
         if not ctx.author.permissions_in(ctx.channel).kick_members:
@@ -52,7 +53,7 @@ class Moderation(commands.Cog):
             await ctx.guild.kick(member, reason=reason)
             embed.description = f'Successfully kicked {member}'
             if reason:
-                embed.description += f'\nReason: {" ".join(reason)}'
+                embed.description += f'\nReason: {reason}'
             
         except Exception as e:
             embed.description = f'ERROR: {e}'
