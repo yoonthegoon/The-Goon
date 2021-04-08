@@ -33,7 +33,7 @@ async def on_ready():
 
 @bot.event
 async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
-    if payload.message_id != 829433058419015750:
+    if payload.message_id != 829495413186494495:
         return
     pid = payload.emoji.id
     guild = bot.get_guild(payload.guild_id)
@@ -43,7 +43,7 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
         role = guild.get_role(815380690102779944)
     # League
     elif pid == 826890607665479751:
-        role = guild.get_role(721762056939765810)  # Guess
+        role = guild.get_role(721762056939765810)
     # DnD
     elif pid == 826890581237956659:
         role = guild.get_role(735643555124478022)
@@ -62,7 +62,7 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
 
 @bot.event
 async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
-    if payload.message_id != 829433058419015750:
+    if payload.message_id != 829495413186494495:
         return
     pid = payload.emoji.id
     guild = bot.get_guild(payload.guild_id)
@@ -73,7 +73,7 @@ async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
         role = guild.get_role(815380690102779944)
     # League
     elif pid == 826890607665479751:
-        role = guild.get_role(721762056939765810)  # Guess
+        role = guild.get_role(721762056939765810)
     # DnD
     elif pid == 826890581237956659:
         role = guild.get_role(735643555124478022)
