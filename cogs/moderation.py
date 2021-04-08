@@ -74,7 +74,7 @@ class Moderation(commands.Cog):
             return
 
         try:
-            await ctx.guild.ban(member, reason=reason)  # TODO: fix "quote_from_bytes() expected bytes"
+            await ctx.guild.ban(member, reason=reason)
             embed.description = f'Successfully banned {member}'
             if reason:
                 embed.description += f'\nReason: {reason}'
