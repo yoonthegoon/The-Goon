@@ -1,10 +1,9 @@
 import discord
 import logging
 import os
-import re
+# import sqlite3  TODO: use database to store shit
 from discord.ext import commands
 from server import start_thread
-from replit import db
 
 
 logger = logging.getLogger('discord')
@@ -51,14 +50,6 @@ async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
         return
     await payload.member.add_roles(role)
 
-    # if str(payload.message_id) not in db.keys():
-    #     return
-    # if payload.emoji.name not in db[str(payload.message_id)]:
-    #     return
-    # role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
-    # guild = bot.get_guild(payload.guild_id)
-    # await payload.member.add_roles(guild.get_role(role))
-
 
 @bot.event
 async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
@@ -80,15 +71,6 @@ async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
     else:
         return
     await member.remove_roles(role)
-
-    # if str(payload.message_id) not in db.keys():
-    #     return
-    # if payload.emoji.name not in db[str(payload.message_id)]:
-    #     return
-    # role = int(re.sub("[^0-9]", "", db[str(payload.message_id)][payload.emoji.name]))
-    # guild = bot.get_guild(payload.guild_id)
-    # member = await guild.fetch_member(payload.user_id)
-    # await member.remove_roles(guild.get_role(role))
 
 
 @bot.command()

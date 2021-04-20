@@ -3,11 +3,6 @@ from discord.ext import commands
 import re
 
 
-embed = discord.Embed(color=0x037f03)
-embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon", 
-                 icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
-
-
 class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -16,7 +11,9 @@ class Moderation(commands.Cog):
     async def delete(self, ctx, limit: int):
         """Deletes past number of messages in current channel."""
 
-        embed.title = f'delete: {limit}'
+        embed = discord.Embed(title=f'delete: {limit}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
     
         if not ctx.author.permissions_in(ctx.channel).manage_messages:
             embed.colour = 0x03037f
@@ -41,7 +38,9 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, member: str, *reason: str):
         """Kicks mentioned member."""
 
-        embed.title = f'kick: {member}'
+        embed = discord.Embed(title=f'kick: {member}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         if not ctx.author.permissions_in(ctx.channel).kick_members:
             embed.colour = 0x03037f
@@ -69,7 +68,9 @@ class Moderation(commands.Cog):
     async def ban(self, ctx, member: str, *reason: str):
         """Bans mentioned member. Deletes messages from member over the past day."""
 
-        embed.title = f'ban: {member}'
+        embed = discord.Embed(title=f'ban: {member}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         if not ctx.author.permissions_in(ctx.channel).ban_members:
             embed.colour = 0x03037f

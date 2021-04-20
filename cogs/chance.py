@@ -3,11 +3,6 @@ from discord.ext import commands
 from random import *
 
 
-embed = discord.Embed(color=0x037f03)
-embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
-                 icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
-
-
 class Chance(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -16,7 +11,9 @@ class Chance(commands.Cog):
     async def flip(self, ctx, limit: int = 1):
         """Flips a coin a given number of times."""
 
-        embed.title = f'flip: {limit}'
+        embed = discord.Embed(title=f'flip: {limit}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         try:
             flip_results = [choice(('Heads', 'Tails')) for _ in range(limit)]
@@ -37,7 +34,9 @@ class Chance(commands.Cog):
     async def choose(self, ctx, *expressions: str):
         """Choose one out of given options."""
 
-        embed.title = f'choose: {" ".join(expressions)}'
+        embed = discord.Embed(title=f'choose: {" ".join(expressions)}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         try:
             embed.description = choice(expressions)
@@ -52,7 +51,9 @@ class Chance(commands.Cog):
     async def roll(self, ctx, dice: str = '1d6'):
         """Rolls dice in NdN format"""
 
-        embed.title = f'roll: {dice}'
+        embed = discord.Embed(title=f'roll: {dice}', color=0x037f03)
+        embed.set_author(name="The Goon", url="https://github.com/yoonthegoon/The-Goon",
+                         icon_url="https://cdn.discordapp.com/avatars/783779669979693117/84be9f2ab1b9bbb56a6c6c113cae7340.png")
 
         try:
             rolls, limit = map(int, dice.split('d'))
