@@ -59,7 +59,6 @@ class Utility(commands.Cog):
             r = requests.get(f'https://api.openweathermap.org/data/2.5/weather'
                              f'?q={",".join(q.split(", "))}&appid={api_key}&units=imperial')
             json = r.json()
-            print(json)
 
             embed.url = f'https://www.openstreetmap.org/#map=12/{json["coord"]["lat"]}/{json["coord"]["lon"]}'
             embed.description = f'{json["main"]["temp"]:.1f}°F. Feels like {json["main"]["feels_like"]:.0f}°F. {json["weather"][0]["description"].capitalize()}'
